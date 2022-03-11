@@ -27,7 +27,7 @@ The services can be implemented using any programming language.
 * Checkout the code from github 
 * cd <checkout_folder> 
 * docker-compose build
-* docker-compose up
+* docker-compose up --scale storage=3
 * Using curl to test the services. Following services created in storage and gateway
 * Gateway
   ** Url to process data
