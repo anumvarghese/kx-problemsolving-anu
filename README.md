@@ -32,8 +32,9 @@ The services can be implemented using any programming language.
 * Gateway
   ** Url to process data
   /
-  /data. - Process data
-  /dstats - to get the status
+  /data - Process data
+  /sstats - to get the status
+
 * Storage:
-  ** read-data
-  ** write data
+  ** /read-data
+  ** /store-data
