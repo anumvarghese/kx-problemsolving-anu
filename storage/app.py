@@ -21,12 +21,7 @@ redis_password = ""
 
 
 
-@app.route("/")
-def index_page():
-    """
-    index 
-    """
-    return ("Hello Storage index_page")
+    
 
 def write_json(file_name, data):
     """
@@ -110,4 +105,4 @@ if __name__ == "__main__":
     """
     Main  
     """
-    app.run(host='0.0.0.0', port=8081)
+    app.run(host='0.0.0.0', debug=True)
