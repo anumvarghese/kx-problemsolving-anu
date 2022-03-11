@@ -11,7 +11,7 @@ from flask import Flask, request, jsonify
 
 
 app = Flask(__name__, template_folder='templates')
-storage_url = 'http://localhost:8081/'
+storage_url = 'http://localhost:8081'
 
 
 @app.route("/")
@@ -21,21 +21,32 @@ def index_page():
     """ 
     return render_template('index.html')
 
+def get_storage_status(storage_url):
+    resp = requests.get(storage_url)
+    return resp
 
-@app.route("/stats")
-def gateway_status():
+
+@app.route('/storage-stats')
+def storage_stats():
+    """
+    Check storage status
+    """
+    resp = get_storage_status(storage_url)
+    return jsonify(message=message, status_code=resp.status_code)
+
+
+@app.route('/sstatus')
+def gstatus():
     """
     Gateway status
     """
     try:
-        response = requests.get(storage_url)
+        resp = get_storage_status(storage_url)
         message = "Success"
-        status_code = response.status_code 
+        status_code = resp.status_code 
     except Exception as e:
         status_code = 500
         message = e
-
-
     return jsonify(message= message,
                    statusCode= status_code), status_code
 

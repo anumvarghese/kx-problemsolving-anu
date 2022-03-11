@@ -1,4 +1,5 @@
-""" 
+"""
+Storage service 
 Module used to read and store data 
 
 """
@@ -19,6 +20,7 @@ redis_port = 6379
 redis_password = ""
 
 
+
 @app.route("/")
 def index_page():
     """
@@ -26,11 +28,11 @@ def index_page():
     """
     return ("Hello Storage index_page")
 
-
 def write_json(file_name, data):
     """
     :param: file_name: input file name
     :param: data input data
+    :return 
     """
     with open(file_name, "w") as outfile:
         json.dump(data, outfile)
@@ -39,6 +41,7 @@ def read_json(file_name):
     """
     # Reading from json file
     :param: file_name: input file name
+    :return json data
     """
     
     with open(file_name, 'r') as openfile:
@@ -50,13 +53,14 @@ def read_json(file_name):
 def store_data():
     """
     Store data in memory
-    Used redis to store data
+    Used redis to store data and commented the code since it is not working 
+    Data stored temporary in File 
     """
-    
     try:
         data_dict = {}       
         data = request.json
         name =  data.get("name")
+        
         #Commenting redis code as it having some issue with docker
         #redis_obj = redis.Redis()        
         #data = json.dumps(data)
@@ -64,7 +68,10 @@ def store_data():
 
         data_dict[name] = data
         file_name = "dummy.json"
+
+        #Saving data in file
         write_json(file_name, data_dict)
+        
         message = "Success"
         status_code = 200
     except Exception as e:
@@ -82,12 +89,14 @@ def read_data():
     """
     try:        
         name = request.args.get('name')
+        
         #Commenting redis code as it having some issue with docker
         #redis_obj = redis.Redis()
         #data = redis_obj.get(name)
         #data = json.loads(data) 
 
         file_name = "dummy.json"
+        #Read data from json file
         resp_data = read_json(file_name)
         data = resp_data.get(name)
 
