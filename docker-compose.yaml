@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  storage:
+    build: storage
+    restart: always
+    environment:
+      - BACKEND_HOST=0.0.0.0
+    image: storage
+    deploy:
+      replicas: 3
+    ports: 
+      - "8081:8081"
+  
+  gateway:
+    build: gateway
+    restart: always
+    ports:
+      - "8085:8085"
+
