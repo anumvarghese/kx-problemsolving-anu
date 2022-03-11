@@ -21,3 +21,19 @@ The services can be implemented using any programming language.
 * Provide a solution for the described problem and give us the instructions necessary to execute it
 * We would like to have your solution in form of a Pull Request into the main repository
 * _What should the Gateway do if no Storage Services are running?_
+
+
+## Execution Steps
+* Checkout the code from github 
+* cd <checkout_folder> 
+* docker-compose build
+* docker-compose up
+* Using curl to test the services. Following services created in storage and gateway
+* Gateway
+  ** Url to process data
+  /
+  /data. - Process data
+  /dstats - to get the status
+* Storage:
+  ** read-data
+  ** write data
