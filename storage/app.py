@@ -6,7 +6,7 @@ Module used to read and store data
 
 #import redis
 import json
-
+import os
 
 from flask import Flask
 from flask import Flask, request, jsonify
@@ -21,7 +21,12 @@ redis_password = ""
 
 
 
-    
+@app.route("/")
+def index_page():
+    """
+    Index page
+    """ 
+    return ("Hello from storage.")    
 
 def write_json(file_name, data):
     """
@@ -105,4 +110,9 @@ if __name__ == "__main__":
     """
     Main  
     """
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host="0.0.0.0", debug=True)
+    #app.run(
+    #    host=os.environ.get("BACKEND_HOST", "172.0.0.1"),
+    #    #port=your_port,
+    #    debug=True,
+    #)

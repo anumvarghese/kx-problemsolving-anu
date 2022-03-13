@@ -5,6 +5,7 @@ Gateway service
 import requests
 import json
 import os
+import docker
 
 from flask import Flask, render_template
 from flask import Flask, request, jsonify
@@ -12,6 +13,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__, template_folder='templates')
 storage_url = 'http://localhost:8081'
+
 
 
 @app.route("/")
@@ -26,24 +28,36 @@ def get_storage_status(storage_url):
     return resp
 
 
-@app.route('/storage-stats')
-def storage_stats():
+def container_status(image_name):
     """
-    Check storage status
+    Check the container Image is running
+    
+    verify the status of a sniffer container by it's name
+    :param image_name: the Image name of the container
+    :return: Boolean if the status is ok
     """
-    resp = get_storage_status(storage_url)
-    return jsonify(message=message, status_code=resp.status_code)
+    client = docker.from_env()
+    containers = client.containers.list()
+    container_is_running = False
+    for container in containers:
+        print (x.attrs['Image'])
+        if 'storage' in x.attrs.get('Name'):
+            container_state = x.attrs['State']
+            container_is_running = container_state['Status'] == RUNNING
+    
+    return container_is_running
 
 
 @app.route('/sstatus')
-def gstatus():
+def sstatus():
     """
-    Gateway status
+    Stroge service  status
     """
     try:
-        resp = get_storage_status(storage_url)
-        message = "Success"
-        status_code = resp.status_code 
+        cimage_name = "storage"
+        message = "Success" if container_status(cimage_name) else "Failure"
+        status_code = 200
+         
     except Exception as e:
         status_code = 500
         message = e
@@ -93,4 +107,9 @@ def process_data():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host="0.0.0.0")
+    #app.run(
+    #    host=os.environ.get("BACKEND_HOST", "172.0.0.1"),
+    #    #port=your_port,
+    #    debug=True,
+    #)

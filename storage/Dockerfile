@@ -1,10 +1,17 @@
 FROM python:3.8
 
+WORKDIR /storage
 
 COPY requirements.txt .
 COPY app.py .
 COPY dummy.json .
+COPY docker-entrypoint.sh .
+RUN chmod +x docker-entrypoint.sh
 RUN chmod 775 dummy.json 
+RUN chmod +x app.py
+COPY . /storage
+
+ENV FLASK_APP=app.py FLASK_RUN_HOST=0.0.0.0
 
 #RUN redisurl="http://download.redis.io/redis-stable.tar.gz"
 #RUN curl -s -o redis-stable.tar.gz "http://download.redis.io/redis-stable.tar.gz"
@@ -22,5 +29,7 @@ RUN chmod 775 dummy.json
 
 RUN pip install -r requirements.txt
 
-EXPOSE 8081
-CMD ["python3", "app.py", "--host", "0.0.0.0"]
+#EXPOSE 8081
+#ENTRYPOINT ["./docker-entrypoint.sh" ]
+ENTRYPOINT ["python"]
+CMD ["app.py", "--host", "0.0.0.0"]
