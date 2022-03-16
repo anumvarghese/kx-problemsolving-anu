@@ -16,7 +16,6 @@ COPY templates/index.html templates/index.html
 
 RUN pip install -r requirements.txt
 
-#EXPOSE 8085
 EXPOSE 8085 
 #ENTRYPOINT ["./docker-entrypoint.sh" ]
 ENTRYPOINT ["python"]
