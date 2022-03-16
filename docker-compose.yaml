@@ -6,8 +6,8 @@ services:
     environment:
       - BACKEND_HOST=0.0.0.0
     image: storage
-    deploy:
-      replicas: 3
+    #deploy:
+    #  replicas: 3
     ports: 
       - "8081:8081"
      

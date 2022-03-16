@@ -43,3 +43,8 @@ The services can be implemented using any programming language.
 * Storage:
   ** /read-data
   ** /store-data
+
+## Results 
+Please refer attached screenshot for service assembly execution
+
+![Alt text](service_assembly_execution_results.png?raw=true "Service Assembly Execution steps and results")
