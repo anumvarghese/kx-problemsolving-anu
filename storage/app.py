@@ -26,7 +26,7 @@ def index_page():
     """
     Index page
     """ 
-    return ("Hello from storage.")    
+    return json.dumps({'message': "Storage Service is up and running "}), 200, {'ContentType':'application/json'}
 
 def write_json(file_name, data):
     """
@@ -101,7 +101,7 @@ def read_data():
         data = resp_data.get(name)
 
     except Exception as e:
-        data = e
+        data = str(e)
 
     return jsonify(data)
 
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     """
     Main  
     """
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", port=8081, debug=True)
     #app.run(
     #    host=os.environ.get("BACKEND_HOST", "172.0.0.1"),
     #    #port=your_port,

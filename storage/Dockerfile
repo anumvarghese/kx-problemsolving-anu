@@ -29,7 +29,7 @@ ENV FLASK_APP=app.py FLASK_RUN_HOST=0.0.0.0
 
 RUN pip install -r requirements.txt
 
-#EXPOSE 8081
+EXPOSE 8081
 #ENTRYPOINT ["./docker-entrypoint.sh" ]
 ENTRYPOINT ["python"]
 CMD ["app.py", "--host", "0.0.0.0"]

@@ -9,7 +9,7 @@ services:
     deploy:
       replicas: 3
     ports: 
-      - "8071-8080:8081"
+      - "8081:8081"
      
   
   gateway:

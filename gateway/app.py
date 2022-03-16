@@ -54,9 +54,11 @@ def sstatus():
     """
     try:
         cimage_name = "storage"
-        message = get_storage_status(storage_url)
+        resp = get_storage_status(storage_url)
+        
+        message = "Success"
         #message = "Success" if container_status(cimage_name) else "Failure"
-        status_code = 200         
+        status_code = resp.status_code         
     except Exception as e:
         status_code = 500
         message = str(e)
