@@ -28,10 +28,12 @@ The services can be implemented using any programming language.
 * cd <checkout_folder> 
 * docker-compose build
 * docker-compose up
+* Run python service.py
+   or  
 * Using curl to test the services. 
-* or Run python service.py
 
-Following services created in storage and gateway
+
+##Following services created in storage and gateway
 * Gateway
   ** Url to process data
   /
