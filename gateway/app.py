@@ -12,8 +12,8 @@ from flask import Flask, request, jsonify
 
 
 app = Flask(__name__, template_folder='templates')
-storage_url = 'http://localhost:8081'
-
+storage_url = 'http://storage:8081'
+RUNNING = 'running'
 
 
 @app.route("/")
@@ -40,9 +40,8 @@ def container_status(image_name):
     containers = client.containers.list()
     container_is_running = False
     for container in containers:
-        print (x.attrs['Image'])
-        if 'storage' in x.attrs.get('Name'):
-            container_state = x.attrs['State']
+        if 'storage' in container.attrs.get('Name'):
+            container_state = container.attrs['State']
             container_is_running = container_state['Status'] == RUNNING
     
     return container_is_running
@@ -55,12 +54,12 @@ def sstatus():
     """
     try:
         cimage_name = "storage"
-        message = "Success" if container_status(cimage_name) else "Failure"
-        status_code = 200
-         
+        message = get_storage_status(storage_url)
+        #message = "Success" if container_status(cimage_name) else "Failure"
+        status_code = 200         
     except Exception as e:
         status_code = 500
-        message = e
+        message = str(e)
     return jsonify(message= message,
                    statusCode= status_code), status_code
 
@@ -81,7 +80,7 @@ def process_data():
             data = response.json()
             status_code = response.status_code
         except Exception as e:
-            message = e
+            message = str(e)
             data = ""
             status_code = 404
 
@@ -99,7 +98,7 @@ def process_data():
             status_code = response.status_code 
             message = "Success"
         except Exception as e:
-            message = e
+            message = str(e)
             status_code = 404
             
         return jsonify(message=message,
@@ -107,7 +106,7 @@ def process_data():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", port=8085)
     #app.run(
     #    host=os.environ.get("BACKEND_HOST", "172.0.0.1"),
     #    #port=your_port,
