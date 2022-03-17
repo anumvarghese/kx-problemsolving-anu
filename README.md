@@ -27,8 +27,9 @@ The services can be implemented using any programming language.
 * Checkout the code from github 
 * cd <checkout_folder> 
 * docker-compose build
-* docker-compose up
-* Run python service.py
+* docker-compose up --scale storage=3
+* Run 
+  python service.py
    or  
 * Using curl to test the services. 
 
@@ -44,7 +45,10 @@ The services can be implemented using any programming language.
   ** /read-data
   ** /store-data
 
-## Results 
+## Results - Without storage service scaling  
 Please refer attached screenshot for service assembly execution
 
 ![Alt text](service_assembly_execution_results.png?raw=true "Service Assembly Execution steps and results")
+
+## Result with storage service scaling 
+![Alt text](service_assembly_execution_results_1.png?raw=true "Service Assembly Execution steps and results with scaling 3 ")
