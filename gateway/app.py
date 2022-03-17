@@ -12,7 +12,7 @@ from flask import Flask, request, jsonify
 
 
 app = Flask(__name__, template_folder='templates')
-storage_url = 'http://storage:8081'
+storage_url = 'http://storage:5000'
 RUNNING = 'running'
 
 
